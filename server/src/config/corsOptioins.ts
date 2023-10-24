@@ -1,4 +1,4 @@
-const allowedOrigins = ['https://localhost:3000', 'https://127.0.0.1:3000', 'http://localhost:3000']
+const allowedOrigins = [process.env.FRONTEND_URL || 'http://localhost:3000']
 
 const corsOption = {
 	origin: (origin: any, callback: any) => {

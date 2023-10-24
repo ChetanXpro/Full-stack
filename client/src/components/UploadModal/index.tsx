@@ -106,12 +106,26 @@ export default function UploadModal({ showModal, setShowModal }: Props) {
                     </label>
                   </div>
                 </div>
+                <div>
+                  {file && (
+                    <div className="flex mb-2 items-center justify-center">
+                      <img
+                        className="w-40 h-40 object-cover rounded-full"
+                        src={URL.createObjectURL(file)}
+                        alt="avatar"
+                      />
+                    </div>
+                  )}
+                </div>
                 {/*footer*/}
                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
                   <button
                     className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => {
+                      setFile(null);
+                      setShowModal(false);
+                    }}
                   >
                     Close
                   </button>

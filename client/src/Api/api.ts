@@ -25,7 +25,7 @@ export const login = async (payload: any) => {
     return request?.data;
   } catch (err: any) {
     const error = err;
-    return Promise.reject(error.response);
+    return Promise.reject(error);
   }
 };
 
@@ -35,6 +35,6 @@ export const signup = async (payload: any) => {
 
     return request?.data;
   } catch (err: any) {
-    return Promise.reject(err.response);
+    return Promise.reject(err);
   }
 };

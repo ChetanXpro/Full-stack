@@ -15,6 +15,7 @@ TaskMate is a task management application that allows users to create, manage, a
 ### Frontend (Client)
 
 - **React**: TaskMate's frontend is built using React, a popular JavaScript library for building user interfaces.
+- **Librarys**: I have only used basic libraries like Axios. I decided to complete this project without using any external libraries.
 - **TypeScript**: TypeScript is used for static typing and improved developer tooling.
 - **Tailwind CSS**: Tailwind CSS is utilized for styling, allowing for a responsive and visually appealing design.
 - **React Query**: The application uses React Query for managing API data fetching and state.

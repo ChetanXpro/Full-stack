@@ -25,8 +25,7 @@
 		"express-async-handler": "^1.2.0",
 		"jsonwebtoken": "^9.0.0",
 		"mongoose": "^6.11.3",
-		"nanoid": "^4.0.0",
-		"rate-limiter-flexible": "^3.0.2"
+		"nanoid": "^4.0.0"
 	},
 	"devDependencies": {
 		"@types/bcrypt": "^5.0.0",

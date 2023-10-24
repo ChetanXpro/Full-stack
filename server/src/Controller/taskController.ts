@@ -13,6 +13,7 @@ export const createTask = asyncHandler(async (req: any, res: any) => {
 
 	await Task.create({ taskName, description, status, createdBy: req.id, priority: priority || 'low' })
 
+	await deleteKey(redisConstants.USER_TASK_REDIS_KEY + req.id)
 	res.status(200).json({ success: true, message: `Task created` })
 })
 

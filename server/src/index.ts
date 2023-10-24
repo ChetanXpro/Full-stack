@@ -7,9 +7,11 @@ import errorHandler from './Middleware/errorHandler'
 import cors from 'cors'
 
 import corsOption from './config/corsOptioins'
+
 const app = express()
 
 const PORT = process.env.PORT || 3003
+
 app.use(errorHandler)
 app.use(json())
 app.use(cookieParser())

@@ -32,7 +32,7 @@ interface Props {
   setIsEditTaskDrawerOpen: (isOpen: boolean) => void;
 
   isViewTaskDrawerOpen: boolean;
-  setIsViewTaskDrawerOpen: (isOpen: boolean) => void;
+  setIsViewTaskDrawerOpen: (open: boolean) => void;
 }
 
 const TaskCard = ({
@@ -76,10 +76,11 @@ const TaskCard = ({
 
   return (
     <div
-      onClick={() => {
-        setTaskToView(task);
-        setIsViewTaskDrawerOpen(!isViewTaskDrawerOpen);
-      }}
+      // onClick={(e) => {
+      //   e.stopPropagation();
+      //   setTaskToView(task);
+      //   setIsViewTaskDrawerOpen(!isViewTaskDrawerOpen);
+      // }}
       className={`
         "flex sticky-note flex-col rounded-lg   bg-gray-400 text-black  w-40 h-56  md:flex-row`}
     >
@@ -98,7 +99,7 @@ const TaskCard = ({
                 ? task.description.length > 60
                   ? task.description.slice(0, 60) + "..."
                   : task.description
-                : "..."}
+                : "No Description"}
             </p>
           </div>
         </div>
@@ -218,6 +219,7 @@ const TaskCard = ({
                   id: task._id,
                   status: value.value,
                 });
+                setMarkButton(false);
               }}
             />
           </div>

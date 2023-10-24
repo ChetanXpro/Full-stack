@@ -61,7 +61,9 @@ const Select = ({ list, label, isOpen, setIsOpen, onSelect }: SelectProps) => {
             {list.map((item: any) => (
               <li key={item.label}>
                 <div
-                  onClick={() => onSelect(item)}
+                  onClick={() => {
+                    onSelect(item);
+                  }}
                   className="block px-4 py-2 hover:bg-gray-100  "
                 >
                   {item.label}

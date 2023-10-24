@@ -11,15 +11,6 @@ export const redisClient = redis.createClient({
 
 redisClient.on('connect', () => console.info('Redis connected'))
 
-export const getRateLimiterClient = () => {
-	return redis.createClient({
-		port: REDIS_PORT,
-		host: REDIS_HOST,
-		password: REDIS_PASSWORD,
-		enable_offline_queue: false,
-	})
-}
-
 export const getKey = async (key: string) => {
 	return await redisClient.get(key)
 }

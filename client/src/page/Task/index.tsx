@@ -66,8 +66,11 @@ const Task = () => {
 
   useEffect(() => {
     if (isSuccess) {
-      setAllTask(data.data);
-      setTasksData(data.data);
+      const sortedByNameData = [...data.data].sort((a: any, b: any) => {
+        return a.taskName.localeCompare(b.taskName);
+      });
+      setAllTask(sortedByNameData);
+      setTasksData(sortedByNameData);
     }
   }, [status, data]);
 

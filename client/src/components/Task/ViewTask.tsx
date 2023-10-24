@@ -24,7 +24,7 @@ import { taskToViewAtom } from "../../atoms/atoms";
 interface ViewTaskProps {
   isViewTaskDrawerOpen: boolean;
 
-  setIsViewTaskDrawerOpen: (isOpen: boolean) => void;
+  setIsViewTaskDrawerOpen: (open: boolean) => void;
 }
 
 const ViewTask = ({
@@ -45,7 +45,7 @@ const ViewTask = ({
     >
       <div className="flex gap-10  flex-col pl-4  h-full mt-3">
         <div className="flex justify-between w-full  items-center mt-3">
-          <h1 className="text-xl font-semibold ">Edit Task</h1>
+          <h1 className="text-xl font-semibold ">View Task</h1>
           <div className="" onClick={resetViewTaskData}>
             <CloseIcon className="h-8 cursor-pointer" />
           </div>
@@ -67,7 +67,11 @@ const ViewTask = ({
 
             <div>
               <p className="mb-2 font-semibold text-md">Task description</p>
-              <p className="text-blue-600  pl-1">{taskToView?.description}</p>
+              <p className="text-blue-600  pl-1">
+                {taskToView?.description
+                  ? taskToView?.description
+                  : "No Description"}
+              </p>
             </div>
             <div className=" grid grid-cols-2 gap-3">
               <div>

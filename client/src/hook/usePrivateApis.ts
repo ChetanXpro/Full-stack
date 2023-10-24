@@ -15,7 +15,7 @@ const usePrivateApis = () => {
     } catch (error) {
       const err = error as AxiosError;
 
-      return Promise.reject(err.response);
+      return Promise.reject(err);
     }
   };
 
@@ -39,7 +39,7 @@ const usePrivateApis = () => {
     } catch (error) {
       const err = error as AxiosError;
 
-      return Promise.reject(err.response);
+      return Promise.reject(err);
     }
   };
 
@@ -51,7 +51,7 @@ const usePrivateApis = () => {
     } catch (error) {
       const err = error as AxiosError;
 
-      return Promise.reject(err.response);
+      return Promise.reject(err);
     }
   };
 
@@ -77,7 +77,7 @@ const usePrivateApis = () => {
     } catch (error) {
       const err = error as AxiosError;
 
-      return Promise.reject(err.response);
+      return Promise.reject(err);
     }
   };
 
@@ -93,7 +93,7 @@ const usePrivateApis = () => {
     } catch (error) {
       const err = error as AxiosError;
 
-      return Promise.reject(err.response);
+      return Promise.reject(err);
     }
   };
 
@@ -118,7 +118,7 @@ const usePrivateApis = () => {
     } catch (error) {
       const err = error as AxiosError;
 
-      return Promise.reject(err.response);
+      return Promise.reject(err);
     }
   };
 
@@ -148,7 +148,7 @@ const usePrivateApis = () => {
     } catch (error) {
       const err = error as AxiosError;
 
-      return Promise.reject(err.response);
+      return Promise.reject(err);
     }
   };
 
@@ -162,7 +162,7 @@ const usePrivateApis = () => {
 
       return response.data.accessToken;
     } catch (error) {
-      console.log(error);
+      return Promise.reject(error);
     }
   };
 
@@ -171,7 +171,7 @@ const usePrivateApis = () => {
       const request = await apiPrivateInstance.get("/user");
       return request?.data;
     } catch (err: any) {
-      return Promise.reject(err.response);
+      return Promise.reject(err);
     }
   };
 

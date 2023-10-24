@@ -26,8 +26,11 @@ const Signup = () => {
 
       navigate("/signin");
     },
-    onError: () => {
-      console.log("error");
+    onError: (e: any) => {
+      console.log("error", e.response.data.message);
+      toast.error(e.response.data.message, {
+        id: "error",
+      });
     },
   });
 
@@ -49,11 +52,11 @@ const Signup = () => {
     mutate(payload);
   };
   return (
-    <section className="min-h-screen   w-full bg-red-200 dark:bg-neutral-700">
+    <section className="min-h-screen    w-full bg-red-200 dark:bg-neutral-700">
       <div className=" h-full w-full   p-10">
-        <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
+        <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 ">
           <div className="w-full">
-            <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
+            <div className="block rounded-lg bg-white shadow-lg ">
               <div className="g-0 lg:flex lg:flex-wrap">
                 {/* <!-- Left column container--> */}
                 <div className="px-4 md:px-0 lg:w-6/12">
@@ -108,7 +111,7 @@ const Signup = () => {
                           onClick={() => {
                             navigate("/signin");
                           }}
-                          className="inline-block rounded border-2 border-danger px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger transition duration-150 ease-in-out hover:border-danger-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-danger-600 focus:border-danger-600 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+                          className=" inline-block rounded border-2 border-danger px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-danger transition duration-150 ease-in-out hover:border-danger-600  text-white hover:bg-opacity-10  focus:border-danger-600 focus:text-danger-600 focus:outline-none focus:ring-0 active:border-danger-700 active:text-danger-700  "
                         >
                           Login
                         </Button>

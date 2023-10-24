@@ -58,11 +58,11 @@ const Signin = () => {
   };
 
   return (
-    <section className="min-h-screen   w-full bg-red-200 dark:bg-neutral-700">
+    <section className="min-h-screen  text-black   w-full bg-red-200 dark:bg-neutral-700">
       <div className=" h-full w-full   p-10">
-        <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 dark:text-neutral-200">
+        <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 ">
           <div className="w-full">
-            <div className="block rounded-lg bg-white shadow-lg dark:bg-neutral-800">
+            <div className="block rounded-lg bg-white shadow-lg ">
               <div className="g-0 lg:flex lg:flex-wrap">
                 <div className="px-4 md:px-0 lg:w-6/12">
                   <div className="md:mx-6 md:p-12">

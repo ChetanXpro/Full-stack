@@ -10,6 +10,25 @@ TaskMate is a task management application that allows users to create, manage, a
 - Filter tasks by various criteria, such as status, priority, and completion.
 - Sort tasks by date.
 - Upload and update avatar images
+- Data cache in backend so that backend can server some frequently visited routes values faster.
+
+## Assumptions and Design Decisions
+
+During the development of TaskMate, the following assumptions and design decisions were made:
+
+1. **User Authentication**: We assumed that users will be required to authenticate before accessing task management features. User authentication is implemented using JWT access tokens and refresh token method
+
+2. **Data Storage**: Task data is stored in a MongoDB database. and images for avatar is stored in aws s3.
+
+3. **Priority and Status Values**: Task priority and status values are predefined and not customizable. Users can select from a predefined list of values. here i added a extra field name priority , with priority user can easily filter there tasks.
+
+4. **Caching**: We utilize Azure Redis for caching frequently visited route values to improve application performance. it improved latency from average 300-400ms to 70-150ms. with this we can save some db calls also.
+
+5. **Frontend Libraries**: TaskMate's frontend is built using React and styled using Tailwind CSS. i have intentionally limited the use of external libraries to maintain simplicity.
+
+6. **Error Handling**: Express.js middleware, such as `express-async-handler`, is used for error handling. It simplifies error handling for asynchronous operations.
+
+
 
 ## Technologies Used
 

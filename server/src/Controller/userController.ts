@@ -7,6 +7,8 @@ import jwt from 'jsonwebtoken'
 import { log } from 'console'
 import { generatePreSignedPutUrl } from '../config/s3'
 import { generateRandomString } from '../utils/helper'
+import { deleteKey, getKey, redisClient, setKey } from '../service/cacheService'
+import { redisConstants } from '../libs/consts'
 
 // @ Create new user
 export const createNewUser = asyncHandler(async (req: any, res: any) => {
@@ -42,6 +44,18 @@ export const getUserById = asyncHandler(async (req: any, res: any) => {
 		return res.sendStatus(500).json({ success: false, message: 'something went wrong' })
 	}
 
+	const cacheUser = await getKey(redisConstants.USER_REDIS_KEY + userId)
+
+	if (cacheUser) {
+		const parseData = JSON.parse(cacheUser)
+		console.log('User found in cache')
+		const userInfo = {
+			email: parseData.email,
+			profilePicture: parseData.profilePicture,
+		}
+		return res.status(200).json(userInfo)
+	}
+
 	const foundUser = await User.findById(userId)
 
 	if (!foundUser) return res.status(400).json({ success: false, message: 'No user found with this id' })
@@ -51,6 +65,7 @@ export const getUserById = asyncHandler(async (req: any, res: any) => {
 		profilePicture: foundUser.profilePicture,
 	}
 
+	await setKey(redisConstants.USER_REDIS_KEY + userId, JSON.stringify(userInfo), 3600)
 	res.status(200).json(userInfo)
 })
 
@@ -175,6 +190,8 @@ export const handleUpload = asyncHandler(async (req: any, res: any) => {
 	const updated = await User.findByIdAndUpdate(userId, { profilePicture: url }, { new: true })
 
 	if (!updated) res.status(400).json({ success: false, message: 'Image upload failed' })
+
+	await deleteKey(redisConstants.USER_REDIS_KEY + userId)
 
 	await res.status(200).json({ success: true, message: 'Uploaded' })
 })

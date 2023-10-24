@@ -2,6 +2,8 @@ import { log } from 'console'
 import Task from '../Models/Task'
 
 import asyncHandler from 'express-async-handler'
+import { redisConstants } from '../libs/consts'
+import { deleteKey, getKey, setKey } from '../service/cacheService'
 
 // Content creator Service
 export const createTask = asyncHandler(async (req: any, res: any) => {
@@ -11,14 +13,27 @@ export const createTask = asyncHandler(async (req: any, res: any) => {
 
 	await Task.create({ taskName, description, status, createdBy: req.id, priority: priority || 'low' })
 
-	res.status(200).json({ success: true, message: `` })
+	res.status(200).json({ success: true, message: `Task created` })
 })
 
 export const getAllTask = asyncHandler(async (req: any, res: any) => {
-	if (!req.id) return res.status(400).json({ message: 'Please login again' })
-	const allApprovedDoc = await Task.find({ createdBy: req.id })
+	const userId = req.id
+	if (!userId) return res.status(400).json({ message: 'Please login again' })
 
-	res.status(200).json({ data: allApprovedDoc })
+	const cacheTasks = await getKey(redisConstants.USER_TASK_REDIS_KEY + userId)
+
+	if (cacheTasks) {
+		const parseData = JSON.parse(cacheTasks)
+		console.log('Task found in cache')
+
+		return res.status(200).json({ data: parseData })
+	}
+
+	const allTask = await Task.find({ createdBy: req.id })
+
+	await setKey(redisConstants.USER_TASK_REDIS_KEY + userId, JSON.stringify(allTask))
+
+	res.status(200).json({ data: allTask })
 })
 
 export const editTask = asyncHandler(async (req: any, res: any) => {
@@ -40,6 +55,8 @@ export const editTask = asyncHandler(async (req: any, res: any) => {
 	)
 
 	if (!editied) return res.status(400).json({ message: 'No Task with this id' })
+
+	await deleteKey(redisConstants.USER_TASK_REDIS_KEY + userId)
 	res.status(200).json({ data: editied })
 })
 
@@ -54,6 +71,7 @@ export const changeTaskStatus = asyncHandler(async (req: any, res: any) => {
 	const editied = await Task.findOneAndUpdate({ _id: id, createdBy: userId }, { status }, { new: true })
 
 	if (!editied) return res.status(400).json({ message: 'No Task with this id' })
+	await deleteKey(redisConstants.USER_TASK_REDIS_KEY + userId)
 	res.status(200).json({ data: editied })
 })
 
@@ -68,7 +86,6 @@ export const deleteTask = asyncHandler(async (req: any, res: any) => {
 	console.log(deleted)
 
 	if (!deleted) return res.status(400).json({ message: 'No Task with this id' })
+	await deleteKey(redisConstants.USER_TASK_REDIS_KEY + userId)
 	res.status(200).json({ data: deleted })
 })
-
-// admin

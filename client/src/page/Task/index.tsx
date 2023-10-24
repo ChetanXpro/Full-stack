@@ -16,6 +16,7 @@ import useTask from "../../hook/useTask/useTask";
 import Loader from "../../components/Loader/Loader";
 import { CloseIcon } from "../../components/Icons";
 import NoData from "../../components/NoData/NoData";
+import ViewTask from "../../components/Task/ViewTask";
 
 const Task = () => {
   const { getTask } = usePrivateApis();
@@ -28,6 +29,8 @@ const Task = () => {
     setIsCreateTaskDrawerOpen,
     isEditTaskDrawerOpen,
     setIsEditTaskDrawerOpen,
+    isViewTaskDrawerOpen,
+    setIsViewTaskDrawerOpen,
     applyStatusFilter,
     sortByDate,
     allTasks,
@@ -101,8 +104,8 @@ const Task = () => {
 
   return (
     <div className="flex flex-col gap-10 pt-4">
-      <div className="flex border w-full  h-24">
-        <div className="h-full mx-10 flex items-center justify-center">
+      <div className="flex border w-full sm:flex-col gap-3  items-center justify-center  py-4 flex-wrap">
+        <div className="h-full mx-10 flex items-center  justify-center">
           <Button
             id="create-task"
             type={"button"}
@@ -113,7 +116,7 @@ const Task = () => {
           </Button>
         </div>
 
-        <div className=" w-full flex items-center gap-3 flex-1 ">
+        <div className=" w-full  justify-center flex flex-wrap  items-center  gap-3 flex-1 ">
           <div className="relative">
             <div ref={dropdownRef} className="flex h-10 relative">
               <button
@@ -332,7 +335,7 @@ const Task = () => {
                     </li>
                     <li
                       onClick={() => {
-                        const sortedData = sortByDate(tasksData);
+                        const sortedData = sortByDate([...tasksData]);
                         setTasksData(sortedData);
 
                         setSortButton(false);
@@ -348,17 +351,17 @@ const Task = () => {
             </div>
           </div>
 
-          <form>
+          <div>
             <label
               htmlFor="default-search"
-              className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+              className="mb-2 text-sm font-medium text-gray-900 sr-only "
             >
               Search
             </label>
-            <div className="relative">
+            <div className="relative  w-60">
               <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                 <svg
-                  className="w-4 h-4 text-gray-500 dark:text-gray-400"
+                  className="w-4 h-4 text-gray-500 "
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -366,28 +369,46 @@ const Task = () => {
                 >
                   <path
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
                     d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
                   />
                 </svg>
               </div>
+
               <input
                 type="search"
                 id="default-search"
-                className="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search Mockups, Logos..."
+                className="block w-full p-3.5 pl-10    text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500   "
+                placeholder="Search Tasks"
                 required
+                onChange={(e) => setSearchQuery(e.target.value)}
               />
               <button
                 type="submit"
-                className="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                onClick={() => {
+                  // search query is items's taskName and description
+
+                  const filteredData = allTask.filter((item: any) => {
+                    return (
+                      item.taskName
+                        .toLowerCase()
+                        .includes(searchQuery.toLowerCase()) ||
+                      item.description
+                        .toLowerCase()
+                        .includes(searchQuery.toLowerCase())
+                    );
+                  });
+
+                  setTasksData(filteredData);
+                }}
+                className="text-white absolute right-2.5 bottom-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 Search
               </button>
             </div>
-          </form>
+          </div>
         </div>
       </div>
       <div className="flex flex-wrap  gap-3 items-center  justify-center md:px-2 sm:px-2 lg:px-5 xl:px-10">
@@ -402,6 +423,8 @@ const Task = () => {
                 setIsEditTaskDrawerOpen={setIsEditTaskDrawerOpen}
                 isEditTaskDrawerOpen={isEditTaskDrawerOpen}
                 setTaskToEdit={setTaskToEdit}
+                isViewTaskDrawerOpen={isViewTaskDrawerOpen}
+                setIsViewTaskDrawerOpen={setIsViewTaskDrawerOpen}
                 taskToEdit={taskToEdit}
               />
             );
@@ -416,6 +439,10 @@ const Task = () => {
         taskToEdit={taskToEdit}
         setIsEditTaskDrawerOpen={setIsEditTaskDrawerOpen}
         isEditTaskDrawerOpen={isEditTaskDrawerOpen}
+      />
+      <ViewTask
+        isViewTaskDrawerOpen={isViewTaskDrawerOpen}
+        setIsViewTaskDrawerOpen={setIsViewTaskDrawerOpen}
       />
     </div>
   );

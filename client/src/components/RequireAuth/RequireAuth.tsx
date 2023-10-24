@@ -6,8 +6,6 @@ import { Routes } from "../../constants/consts";
 const RequireAuth = () => {
   const { isLoggedIn } = useAuthentication();
 
-  console.log("Is logged in", isLoggedIn);
-
   return (
     <>
       {isLoggedIn ? (

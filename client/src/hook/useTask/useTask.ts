@@ -21,6 +21,7 @@ const useTask = () => {
   const { deleteTask, getTask, changeStatus } = usePrivateApis();
   const [isCreateTaskDrawerOpen, setIsCreateTaskDrawerOpen] = useState(false);
   const [isEditTaskDrawerOpen, setIsEditTaskDrawerOpen] = useState(false);
+  const [isViewTaskDrawerOpen, setIsViewTaskDrawerOpen] = useState(false);
   const [allTask, setAllTask] = useAtom(allTasksAtom);
   const queryClient = useQueryClient();
   // const [allTaskData, setAllTask] = useAtom(allTasksAtom);
@@ -28,6 +29,7 @@ const useTask = () => {
   const [filterButton, setFilterButton] = useState(false);
   const [statusFilterButton, setStatusFilterButton] = useState(false);
   const [priorityFilterButton, setPriorityFilterButton] = useState(false);
+  const [taskToView, setTaskToView] = useState({} as any);
 
   const [sortButton, setSortButton] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
@@ -51,17 +53,6 @@ const useTask = () => {
     });
 
   const [allTasks, setAllTasks] = useAtom(allTasksAtom);
-
-  // const {
-  //   data: taskData,
-  //   isFetched: isTaskFetched,
-  //   isLoading: isTaskFetchLoading,
-  //   error: TaskFetchError,
-  // } = useQuery({ queryKey: ["tasks"], queryFn: getTask });
-
-  // if (isTaskFetched && !isTaskFetchLoading && !TaskFetchError) {
-  //   setAllTasks(taskData?.data);
-  // }
 
   const applyStatusFilter = (status: string, data: any) => {
     console.log("data inside task", data);
@@ -108,6 +99,10 @@ const useTask = () => {
     setSortButton,
     searchQuery,
     setSearchQuery,
+    taskToView,
+    setTaskToView,
+    setIsViewTaskDrawerOpen,
+    isViewTaskDrawerOpen,
 
     setPriorityFilterButton,
   };

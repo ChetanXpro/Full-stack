@@ -6,11 +6,12 @@ interface IUser {
 }
 
 export const isLoggedInAtom = atom<boolean>(false);
-export const user = atom<any>({});
-export const allTasksAtom = atom<any>([]);
-export const taskToEditAtom = atom<IUser>({
+export const user = atom<IUser>({
   email: "",
   profilePicture: "",
 });
+export const allTasksAtom = atom<any>([]);
+export const taskToEditAtom = atom<any>({});
+export const taskToViewAtom = atom<any>({});
 
 export const authAtom = atom<any>({});

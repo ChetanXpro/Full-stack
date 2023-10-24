@@ -18,7 +18,7 @@ const Home = () => {
 
   const [showSidebar, setShowSidebar] = useState(false);
   const { getUser } = usePrivateApis();
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["user"],
     queryFn: getUser,
   });

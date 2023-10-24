@@ -12,13 +12,27 @@ import logo from "../../../assets/task.png";
 import Avatar from "../../Avatar";
 import AvtarDrop from "./AvtarDrop";
 import UploadModal from "../../UploadModal";
+import { useQuery } from "@tanstack/react-query";
+import usePrivateApis from "../../../hook/usePrivateApis";
 
 const Header = () => {
   const [active, setActive] = useState(false);
+  const { getUser } = usePrivateApis();
   const [showModal, setShowModal] = useState(false);
   const [avtarDrop, setAvtarDrop] = useState(false);
   const [userData, setUser] = useAtom(user);
   const navigate = useNavigate();
+  const { data, isLoading, refetch } = useQuery({
+    queryKey: ["user"],
+    queryFn: getUser,
+  });
+
+  useEffect(() => {
+    if (data) {
+      setUser(data);
+    }
+  }, [data]);
+
   const showMenu = () => {
     setActive(!active);
   };

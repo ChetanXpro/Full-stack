@@ -15,6 +15,7 @@
 	"keywords": [],
 	"author": "",
 	"dependencies": {
+		"async-redis": "^2.0.0",
 		"aws-sdk": "^2.1478.0",
 		"bcrypt": "^5.1.0",
 		"cookie-parser": "^1.4.6",
@@ -24,7 +25,8 @@
 		"express-async-handler": "^1.2.0",
 		"jsonwebtoken": "^9.0.0",
 		"mongoose": "^6.11.3",
-		"nanoid": "^4.0.0"
+		"nanoid": "^4.0.0",
+		"rate-limiter-flexible": "^3.0.2"
 	},
 	"devDependencies": {
 		"@types/bcrypt": "^5.0.0",

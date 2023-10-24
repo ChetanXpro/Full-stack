@@ -12,7 +12,7 @@ import { useMutation, QueryClient } from "@tanstack/react-query";
 import usePrivateApis from "../../hook/usePrivateApis";
 import useTask from "../../hook/useTask/useTask";
 import { useAtom } from "jotai";
-import { taskToEditAtom } from "../../atoms/atoms";
+import { taskToEditAtom, taskToViewAtom } from "../../atoms/atoms";
 import Select from "../Select";
 
 interface Props {
@@ -30,15 +30,24 @@ interface Props {
   };
 
   setIsEditTaskDrawerOpen: (isOpen: boolean) => void;
+
+  isViewTaskDrawerOpen: boolean;
+  setIsViewTaskDrawerOpen: (isOpen: boolean) => void;
 }
 
 const TaskCard = ({
   task,
+
   setIsEditTaskDrawerOpen,
+
+  isViewTaskDrawerOpen,
+  setIsViewTaskDrawerOpen,
 
   isEditTaskDrawerOpen,
 }: Props) => {
   const [taskToEdit, setTaskToEdit] = useAtom(taskToEditAtom);
+  const [taskToView, setTaskToView] = useAtom(taskToViewAtom);
+
   const [actionButton, setActionButton] = React.useState(false);
   const [markbutton, setMarkButton] = useState(false);
   const actiondropdownRef = React.useRef<HTMLDivElement>(null);
@@ -67,6 +76,10 @@ const TaskCard = ({
 
   return (
     <div
+      onClick={() => {
+        setTaskToView(task);
+        setIsViewTaskDrawerOpen(!isViewTaskDrawerOpen);
+      }}
       className={`
         "flex sticky-note flex-col rounded-lg   bg-gray-400 text-black  w-40 h-56  md:flex-row`}
     >
@@ -82,8 +95,8 @@ const TaskCard = ({
             </h5>
             <p className=" text-sm h-full overflow-scroll  flex-1 text-neutral-600 ">
               {task.description.length > 0
-                ? task.description.length > 100
-                  ? task.description.slice(0, 100) + "..."
+                ? task.description.length > 60
+                  ? task.description.slice(0, 60) + "..."
                   : task.description
                 : "..."}
             </p>
@@ -128,7 +141,10 @@ const TaskCard = ({
           <div className=" flex items-center  gap-3 ">
             <div ref={actiondropdownRef} className="flex  relative ">
               <button
-                onClick={() => setActionButton(!actionButton)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActionButton(!actionButton);
+                }}
                 className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 type="button"
               >
@@ -170,12 +186,15 @@ const TaskCard = ({
                       </div>
                     </li>
                     <li>
-                      <a
-                        href="#"
+                      <div
+                        onClick={() => {
+                          setTaskToView(task);
+                          setIsViewTaskDrawerOpen(!isViewTaskDrawerOpen);
+                        }}
                         className="block px-4 py-2 hover:bg-gray-100  "
                       >
                         View
-                      </a>
+                      </div>
                     </li>
                     <li>
                       <div

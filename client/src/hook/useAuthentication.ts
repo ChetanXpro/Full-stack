@@ -13,6 +13,9 @@ const useAuthentication = () => {
 
   isLoggedIn = !!sessionStorage.getItem("access_token");
 
+  if (isLoggedIn) {
+  }
+
   return { isLoggedIn };
 };
 

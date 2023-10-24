@@ -61,18 +61,6 @@ To run TaskMate locally, you will need to set up both the frontend and backend. 
 
 Once you have both the frontend and backend set up, you can start using TaskMate to manage your tasks. Create, update, and organize tasks to stay productive and organized.
 
-## Contributing
 
-If you would like to contribute to TaskMate, please read our [Contributing Guidelines](CONTRIBUTING.md) for more information on how to get started.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Special thanks to the open-source community for the tools and libraries used in this project.
-
----
 
 Happy task managing with TaskMate!

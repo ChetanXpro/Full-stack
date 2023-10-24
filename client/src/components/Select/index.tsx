@@ -49,7 +49,7 @@ const Select = ({ list, label, isOpen, setIsOpen, onSelect }: SelectProps) => {
       {isOpen && (
         <div
           id="dropdown"
-          className=" absolute z-50 top-11 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 "
+          className={`  absolute z-50 top-11 bg-white divide-y divide-gray-100 rounded-lg shadow w-44`}
         >
           <ul
             className="py-2 text-sm text-gray-700 "

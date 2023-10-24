@@ -14,6 +14,7 @@ const schema = new Schema(
 		},
 		profilePicture: {
 			type: String,
+			default: '',
 		},
 		refreshToken: String,
 	},

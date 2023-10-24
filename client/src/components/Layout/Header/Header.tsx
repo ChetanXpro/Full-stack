@@ -1,6 +1,6 @@
 import { useAtom } from "jotai";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { user } from "../../../atoms/atoms";
 
@@ -11,19 +11,23 @@ import MenuItems from "./MenuItems";
 import logo from "../../../assets/task.png";
 import Avatar from "../../Avatar";
 import AvtarDrop from "./AvtarDrop";
+import UploadModal from "../../UploadModal";
 
 const Header = () => {
   const [active, setActive] = useState(false);
+  const [showModal, setShowModal] = useState(false);
   const [avtarDrop, setAvtarDrop] = useState(false);
-
-  // const [userData, setUser] = useAtom(user);
-
+  const [userData, setUser] = useAtom(user);
   const navigate = useNavigate();
   const showMenu = () => {
     setActive(!active);
   };
   const showAvtarDrop = (e: any) => {
     setAvtarDrop(!avtarDrop);
+  };
+
+  const handleshowModals = () => {
+    setShowModal(true);
   };
 
   return (
@@ -52,13 +56,23 @@ const Header = () => {
             <p>Tasks</p>
           </Link>
 
+          <div onClick={handleshowModals} className=" cursor-pointer">
+            <p>Upload Avatar</p>
+          </div>
+
           <div
             onClick={showAvtarDrop}
             className="flex cursor-pointer gap-1 items-center"
           >
-            <Avatar name="Chetan" size="12" />
+            <Avatar
+              imageUrl={userData?.profilePicture}
+              name={userData?.email}
+              size="12"
+            />
           </div>
         </ul>
+
+        <UploadModal setShowModal={setShowModal} showModal={showModal} />
 
         {avtarDrop && (
           <AvtarDrop setAvtarDrop={setAvtarDrop} avtarDrop={avtarDrop} />

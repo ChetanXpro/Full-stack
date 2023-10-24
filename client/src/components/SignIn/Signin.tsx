@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-
+import toast from "react-hot-toast";
 import { login } from "../../Api/api";
 import { useAtom } from "jotai";
 import logo from "../../assets/task.png";
@@ -14,6 +14,7 @@ import { authAtom, user } from "../../atoms/atoms";
 import Button from "../Button";
 import Input from "../Input";
 import { Routes } from "../../constants/consts";
+import { ValidateEmail } from "../../utils/utils";
 const Signin = () => {
   const [email, setEmail] = useState("");
 
@@ -41,7 +42,11 @@ const Signin = () => {
   const handleSubmit = (e: any) => {
     e.preventDefault();
     if (!email || !password) {
-      return;
+      return toast.error("Fill all details");
+    }
+
+    if (!ValidateEmail(email)) {
+      return toast.error("Invalid email");
     }
     const payload = {
       email,
@@ -102,8 +107,6 @@ const Signin = () => {
                         >
                           Log in
                         </Button>
-
-                        <a href="#!">Forgot password?</a>
                       </div>
 
                       <div className="flex items-center justify-between pb-6">

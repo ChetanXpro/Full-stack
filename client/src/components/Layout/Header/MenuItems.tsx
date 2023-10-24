@@ -8,15 +8,23 @@ import WhiteDiscord from "../../../assets/whitedis.png";
 import logo from "../../assets/nobg.png";
 import { CloseIcon, Icon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import Avatar from "../../Avatar";
+import UploadModal from "../../UploadModal";
+import usePrivateApis from "../../../hook/usePrivateApis";
 
 const MenuItems = ({ showMenu, active }: any) => {
   const [userData, setUser] = useAtom(user);
+  const { logout } = usePrivateApis();
   const navigate = useNavigate();
-  const logout = () => {
-    sessionStorage.removeItem("jwt");
+  const [showModal, setShowModal] = useState(false);
 
-    navigate("signin");
+  const handleshowModals = () => {
+    setShowModal(true);
   };
+  const handleLogout = async () => {
+    await logout();
+    navigate(Routes.LOGIN);
+  };
+
   return (
     <ul
       className={
@@ -25,24 +33,43 @@ const MenuItems = ({ showMenu, active }: any) => {
           : "hidden"
       }
     >
-      <CloseIcon onClick={showMenu} />
+      <CloseIcon className="cursor-pointer" onClick={showMenu} />
 
-      <Link className="hover:underline" onClick={showMenu} to={"/"}>
+      <Link
+        className="hover:underline cursor-pointer"
+        onClick={showMenu}
+        to={"/"}
+      >
         <p>Home</p>
       </Link>
 
-      <Link className="hover:underline" onClick={showMenu} to={"/task"}>
+      <Link
+        className="hover:underline cursor-pointer"
+        onClick={showMenu}
+        to={"/task"}
+      >
         <p>Tasks</p>
       </Link>
+      <div
+        className="hover:underline cursor-pointer"
+        onClick={handleshowModals}
+      >
+        <p>Upload Avatar</p>
+      </div>
 
-      <div className="hover:underline" onClick={logout}>
+      <div className="hover:underline cursor-pointer" onClick={handleLogout}>
         <p>Logout</p>
       </div>
       <div className="flex items-center justify-center">
         <div className="ml-4 mr-2 ">
-          <Avatar name={`${userData?.name}`} size={"12"} />
+          <Avatar
+            imageUrl={userData?.profilePicture}
+            name={userData?.email}
+            size={"12"}
+          />
         </div>
       </div>
+      <UploadModal setShowModal={setShowModal} showModal={showModal} />
     </ul>
   );
 };

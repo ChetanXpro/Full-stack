@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useMutation, useQuery } from "react-query";
+import React, { useEffect, useState } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import useAuthentication from "../../hook/useAuthentication";
 import usePrivateApis from "../../hook/usePrivateApis";
 
@@ -9,42 +9,30 @@ import logo from "../../assets/task.png";
 import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
 
+import { user } from "../../atoms/atoms";
+import { useAtom } from "jotai";
+import Loader from "../../components/Loader/Loader";
+
 const Home = () => {
-  const { getDocs, cloneDocs } = usePrivateApis();
   const navigate = useNavigate();
 
   const [showSidebar, setShowSidebar] = useState(false);
+  const { getUser } = usePrivateApis();
+  const { data, isLoading } = useQuery({
+    queryKey: ["user"],
+    queryFn: getUser,
+  });
 
-  const dummyData = [
-    {
-      id: 1,
-      taskName: "Task 1",
-      description: "Description for Task 1",
-      status: TaskEnum.PENDING,
-      imageUrl:
-        "https://tecdn.b-cdn.net/wp-content/uploads/2020/06/vertical.jpg",
-    },
-    {
-      id: 2,
-      taskName: "Task 2",
-      description: "Description for Task 2",
-      status: TaskEnum.COMPLETED,
-    },
-    {
-      id: 3,
-      taskName: "Task 3",
-      description: "",
-      status: TaskEnum.INPROGRESS,
-    },
+  const [userData, setUser] = useAtom(user);
 
-    {
-      id: 3,
-      taskName: "Task 3",
-      description:
-        "Description dddddsdsdsmsmsmsmsmsmsmmsmssm lorem ererrererere for Task 3",
-      status: "Done",
-    },
-  ];
+  useEffect(() => {
+    if (data) {
+      setUser(data);
+    }
+  }, [data]);
+
+  if (isLoading) return <Loader />;
+
   return (
     <div className=" font-mono h-[calc(100vh-4rem)]">
       <div className="h-full flex items-center justify-center">

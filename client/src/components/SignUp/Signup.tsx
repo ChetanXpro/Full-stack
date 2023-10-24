@@ -10,28 +10,19 @@ import { useEffect } from "react";
 import Input from "../Input";
 import Button from "../Button";
 import logo from "../../assets/task.png";
+import { ValidateEmail } from "../../utils/utils";
 
 const Signup = () => {
-  const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
-  const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
   const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
+
   const [password, setPassword] = useState("");
-  const [validName, setValidName] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setValidName(PWD_REGEX.test(password));
-  }, [password]);
 
   const { isError, error, mutate } = useMutation({
     mutationFn: signup,
     onSuccess: (data) => {
       toast.success("Account created");
-
-      setSuccess(true);
 
       navigate("/signin");
     },
@@ -42,6 +33,15 @@ const Signup = () => {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
+
+    if (!email || !password) {
+      return toast.error("Fill all details");
+    }
+
+    if (!ValidateEmail(email)) {
+      return toast.error("Invalid email");
+    }
+
     const payload = {
       email: email,
       password,
@@ -96,10 +96,8 @@ const Signup = () => {
                           type={"submitß"}
                           className="w-full mb-3 inline-block  rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
                         >
-                          Log in
+                          Register
                         </Button>
-
-                        <a href="#!">Forgot password?</a>
                       </div>
 
                       <div className="flex items-center justify-between pb-6">

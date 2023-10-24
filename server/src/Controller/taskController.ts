@@ -25,8 +25,12 @@ export const editTask = asyncHandler(async (req: any, res: any) => {
 	const { id, taskName, description, status, priority } = req.body
 	const userId = req.id
 
-	if (!taskName || !status || !id) return res.status(400).json({ message: 'Provide all inputs' })
+	if (!taskName || !status || typeof status !== 'string' || !id)
+		return res.status(400).json({ message: 'Provide all inputs' })
 
+	if (priority && typeof priority !== 'string') {
+		return res.status(400).json({ message: 'Provide valid inputs' })
+	}
 	// check if user send priority and if send then update it to db
 
 	const editied = await Task.findOneAndUpdate(

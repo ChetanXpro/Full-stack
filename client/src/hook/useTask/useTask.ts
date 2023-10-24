@@ -29,6 +29,9 @@ const useTask = () => {
   const [statusFilterButton, setStatusFilterButton] = useState(false);
   const [priorityFilterButton, setPriorityFilterButton] = useState(false);
 
+  const [sortButton, setSortButton] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const { mutate: deleteTaskFunc, error: deleteTaskError } = useMutation({
     mutationFn: deleteTask,
     onSuccess: () => {
@@ -101,6 +104,11 @@ const useTask = () => {
     statusFilterButton,
     setStatusFilterButton,
     priorityFilterButton,
+    sortButton,
+    setSortButton,
+    searchQuery,
+    setSearchQuery,
+
     setPriorityFilterButton,
   };
 };

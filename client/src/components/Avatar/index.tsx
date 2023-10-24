@@ -35,7 +35,11 @@ const Avatar = ({
   let avatarContent;
 
   if (imageUrl) {
-    avatarContent = <img src={imageUrl} alt={alt} />;
+    avatarContent = (
+      <div className="border rounded-full border-gray-500 overflow-hidden">
+        <img src={imageUrl} className="h-10" alt={alt} />
+      </div>
+    );
   } else if (name) {
     const randomBackgroundColor = getRandomColor();
     const firstLetter = name.charAt(0).toUpperCase();

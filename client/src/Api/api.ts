@@ -36,12 +36,3 @@ export const signup = async (payload: any) => {
     return Promise.reject(err.response);
   }
 };
-
-export const getUser = async () => {
-  try {
-    const request = await apiPrivateInstance.get("/user/getUser");
-    return request?.data;
-  } catch (err: any) {
-    return Promise.reject(err.response);
-  }
-};

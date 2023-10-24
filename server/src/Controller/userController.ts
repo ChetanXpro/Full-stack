@@ -1,8 +1,12 @@
 import User from '../Models/User'
 import { Request, Response } from 'express'
+
 import asyncHandler from 'express-async-handler'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
+import { log } from 'console'
+import { generatePreSignedPutUrl } from '../config/s3'
+import { generateRandomString } from '../utils/helper'
 
 // @ Create new user
 export const createNewUser = asyncHandler(async (req: any, res: any) => {
@@ -32,18 +36,19 @@ export const createNewUser = asyncHandler(async (req: any, res: any) => {
 })
 
 export const getUserById = asyncHandler(async (req: any, res: any) => {
-	const id = req.id
+	const userId = req.id
 
-	if (!id) {
+	if (!userId) {
 		return res.sendStatus(500).json({ success: false, message: 'something went wrong' })
 	}
 
-	const foundUser = await User.findById(id)
+	const foundUser = await User.findById(userId)
 
 	if (!foundUser) return res.status(400).json({ success: false, message: 'No user found with this id' })
 
 	const userInfo = {
 		email: foundUser.email,
+		profilePicture: foundUser.profilePicture,
 	}
 
 	res.status(200).json(userInfo)
@@ -51,7 +56,7 @@ export const getUserById = asyncHandler(async (req: any, res: any) => {
 
 export const login = asyncHandler(async (req: any, res: any) => {
 	const cookies = req.cookies
-	console.log(req.body)
+
 	const { email, password } = req.body
 	if (!email || !password) {
 		res.status(400).json({ message: 'All field are required' })
@@ -121,4 +126,55 @@ export const refreshToken = asyncHandler(async (req: any, res: any) => {
 		)
 		res.json({ accessToken })
 	})
+})
+
+export const handleLogout = asyncHandler(async (req: any, res: any) => {
+	const cookies = req.cookies
+	console.log('cookie', cookies)
+
+	if (!cookies?.jwt) return res.sendStatus(204) //No content
+	const refreshToken = cookies.jwt
+
+	const foundUser = await User.findOne({ refreshToken })
+
+	if (!foundUser) {
+		res.clearCookie('jwt', { httpOnly: true, sameSite: 'none', secure: true })
+		return res.sendStatus(204)
+	}
+
+	foundUser.refreshToken = ''
+
+	await foundUser.save()
+
+	res.clearCookie('jwt', { httpOnly: true, sameSite: 'none', secure: true })
+	res.sendStatus(204)
+})
+
+export const handleGetUrl = asyncHandler(async (req: any, res: any) => {
+	const { fileType, fileName, fileSize } = req.body
+
+	if (!fileType || !fileName) res.status(400).json({ success: false, message: 'Please provide all details' })
+
+	const s3ObjectKey = generateRandomString(10) + '-' + fileName
+	const url = await generatePreSignedPutUrl({
+		fileType,
+		s3ObjectKey,
+	})
+
+	console.log('url', url)
+
+	res.status(200).json({ success: true, url: url, s3ObjectKey })
+})
+
+export const handleUpload = asyncHandler(async (req: any, res: any) => {
+	const { url } = req.body
+	const userId = req.id
+
+	if (!url) res.status(400).json({ success: false, message: 'Please provide all details' })
+
+	const updated = await User.findByIdAndUpdate(userId, { profilePicture: url }, { new: true })
+
+	if (!updated) res.status(400).json({ success: false, message: 'Image upload failed' })
+
+	await res.status(200).json({ success: true, message: 'Uploaded' })
 })

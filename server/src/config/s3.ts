@@ -1,4 +1,5 @@
 import AWS from 'aws-sdk'
+import { log } from 'console'
 
 interface IUploadParams {
 	s3ObjectKey: string
@@ -7,8 +8,6 @@ interface IUploadParams {
 
 export const generatePreSignedGetUrl = async (payload: IUploadParams) => {
 	try {
-		console.log(JSON.stringify(`[GET S3 DOWNLOAD URL SERVICE] ${JSON.stringify(payload)}`))
-
 		const { s3ObjectKey, s3Bucket } = payload
 
 		const URL_EXPIRATION_TIME = 60000
@@ -38,25 +37,31 @@ export const generatePreSignedGetUrl = async (payload: IUploadParams) => {
 			)
 		})
 	} catch (error) {
-		console.log(JSON.stringify(`[GET S3 DOWNLOAD URL SERVICE ERROR] ${JSON.stringify(error)}`))
+		console.log('S3 GET PRESIGN URL ERROR:  ', error)
 	}
 }
 
 const URL_EXPIRATION_TIME = 600 // in seconds
 const S3_BUCKET = process.env.S3_BUCKET
 
-export const generatePreSignedPutUrl = async (payload: any) => {
-	try {
-		console.info(JSON.stringify(`[GET S3 UPLOAD URL SERVICE] ${JSON.stringify(payload)}`))
+interface PresignPayload {
+	fileType: string
+	s3ObjectKey: string
+}
 
+export const generatePreSignedPutUrl = async (payload: PresignPayload) => {
+	try {
 		const { fileType, s3ObjectKey } = payload
 
-		const myBucket = new AWS.S3({
+		AWS.config.update({
 			signatureVersion: 'v4',
-			params: { Bucket: S3_BUCKET },
 			accessKeyId: process.env.AWS_ACCESS_KEY_ID,
 			secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
 			region: process.env.REGION,
+		})
+
+		const myBucket = new AWS.S3({
+			params: { Bucket: S3_BUCKET },
 		})
 
 		return new Promise((resolve, reject) => {
@@ -79,7 +84,6 @@ export const generatePreSignedPutUrl = async (payload: any) => {
 			)
 		})
 	} catch (error: any) {
-		console.info(JSON.stringify(`[GET S3 UPLOAD URL SERVICE ERROR] ${JSON.stringify(error)}`))
-		throw new error()
+		console.log('S3 GET PRESIGN URL ERROR:  ', error)
 	}
 }

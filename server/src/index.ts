@@ -10,7 +10,7 @@ import corsOption from './config/corsOptioins'
 
 export const app = express()
 
-const PORT = process.env.PORT || 3003
+const PORT = process.env.PORT || 8000
 
 app.use(errorHandler)
 app.use(json())

@@ -26,6 +26,9 @@ TaskMate is a task management application that allows users to create, manage, a
 - **Express.js**: Express.js is used for creating a RESTful API to serve and manage tasks.
 - **MongoDB**: MongoDB is used as the database for storing and retrieving task data.
 - **Mongoose**: Mongoose is an ODM (Object Data Modeling) library for MongoDB.
+- **AWS S3***: S3 to store users avatar images.
+- **Azure Redis**: Redis is used to cache some frequently visited route values.
+- **Express-async-handler**: Express-async-handler is a middleware for Express.js that simplifies error handling in asynchronous route handlers.
 
 ## Getting Started
 

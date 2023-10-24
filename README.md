@@ -9,6 +9,7 @@ TaskMate is a task management application that allows users to create, manage, a
 - Edit and update existing tasks.
 - Filter tasks by various criteria, such as status, priority, and completion.
 - Sort tasks by date.
+- Upload and update avatar images
 
 ## Technologies Used
 

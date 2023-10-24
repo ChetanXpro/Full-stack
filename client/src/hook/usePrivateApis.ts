@@ -137,11 +137,8 @@ const usePrivateApis = () => {
       console.log(res);
 
       if (res) {
-        const BUCKET = import.meta.env.VITE_S3_BUCKET;
-        const REGION = import.meta.env.VITE_S3_REGION;
-        const s3url = `https://${BUCKET}.s3.${REGION}.amazonaws.com/${s3ObjectKey}`;
         const request = await apiPrivateInstance.post(`/user/upload`, {
-          url: s3url,
+          s3ObjectKey: s3ObjectKey,
         });
         return request.data;
       }

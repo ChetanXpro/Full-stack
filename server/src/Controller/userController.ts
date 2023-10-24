@@ -183,12 +183,17 @@ export const handleGetUrl = asyncHandler(async (req: any, res: any) => {
 })
 
 export const handleUpload = asyncHandler(async (req: any, res: any) => {
-	const { url } = req.body
+	const { s3ObjectKey } = req.body
 	const userId = req.id
 
-	if (!url) res.status(400).json({ success: false, message: 'Please provide all details' })
+	if (!s3ObjectKey) res.status(400).json({ success: false, message: 'Please provide all details' })
 
-	const updated = await User.findByIdAndUpdate(userId, { profilePicture: url }, { new: true })
+	const BUCKET = process.env.S3_BUCKET
+	const REGION = process.env.REGION
+
+	const s3url = `https://${BUCKET}.s3.${REGION}.amazonaws.com/${s3ObjectKey}`
+
+	const updated = await User.findByIdAndUpdate(userId, { profilePicture: s3url }, { new: true })
 
 	if (!updated) res.status(400).json({ success: false, message: 'Image upload failed' })
 

@@ -4,11 +4,12 @@ import { Request, Response } from 'express'
 import asyncHandler from 'express-async-handler'
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-import { log } from 'console'
+
 import { generatePreSignedPutUrl } from '../config/s3'
 import { generateRandomString } from '../utils/helper'
 import { deleteKey, getKey, redisClient, setKey } from '../service/cacheService'
 import { redisConstants } from '../libs/consts'
+import log from '../utils/logger'
 
 // @ Create new user
 export const createNewUser = asyncHandler(async (req: any, res: any) => {
@@ -48,7 +49,7 @@ export const getUserById = asyncHandler(async (req: any, res: any) => {
 
 	if (cacheUser) {
 		const parseData = JSON.parse(cacheUser)
-		console.log('User found in cache')
+		log.info('User found in cache')
 		const userInfo = {
 			email: parseData.email,
 			profilePicture: parseData.profilePicture,
@@ -119,7 +120,7 @@ export const login = asyncHandler(async (req: any, res: any) => {
 
 export const refreshToken = asyncHandler(async (req: any, res: any) => {
 	const cookies = req.cookies
-	console.log('cookies', cookies)
+	log.info('cookies', cookies)
 
 	if (!cookies?.jwt) return res.sendStatus(401)
 	const refreshToken = cookies.jwt
@@ -145,7 +146,7 @@ export const refreshToken = asyncHandler(async (req: any, res: any) => {
 
 export const handleLogout = asyncHandler(async (req: any, res: any) => {
 	const cookies = req.cookies
-	console.log('cookie', cookies)
+	log.info('cookie', cookies)
 
 	if (!cookies?.jwt) return res.sendStatus(204) //No content
 	const refreshToken = cookies.jwt
@@ -176,7 +177,7 @@ export const handleGetUrl = asyncHandler(async (req: any, res: any) => {
 		s3ObjectKey,
 	})
 
-	console.log('url', url)
+	log.info('url', url)
 
 	res.status(200).json({ success: true, url: url, s3ObjectKey })
 })

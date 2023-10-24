@@ -1,15 +1,18 @@
-import { log } from 'console'
 import Task from '../Models/Task'
 
 import asyncHandler from 'express-async-handler'
 import { redisConstants } from '../libs/consts'
 import { deleteKey, getKey, setKey } from '../service/cacheService'
+import log from '../utils/logger'
 
 // Content creator Service
 export const createTask = asyncHandler(async (req: any, res: any) => {
 	const { taskName, description, status, priority } = req.body
 
 	if (!taskName || !status) return res.status(400).json({ message: 'Provide all inputs' })
+	if ((status && typeof status !== 'string') || (description && typeof description !== 'string')) {
+		return res.status(400).json({ message: 'Provide valid inputs' })
+	}
 
 	await Task.create({ taskName, description, status, createdBy: req.id, priority: priority || 'low' })
 
@@ -25,7 +28,7 @@ export const getAllTask = asyncHandler(async (req: any, res: any) => {
 
 	if (cacheTasks) {
 		const parseData = JSON.parse(cacheTasks)
-		console.log('Task found in cache')
+		log.info('Task found in cache')
 
 		return res.status(200).json({ data: parseData })
 	}
@@ -84,7 +87,7 @@ export const deleteTask = asyncHandler(async (req: any, res: any) => {
 
 	const deleted = await Task.findOneAndDelete({ _id: id, createdBy: userId })
 
-	console.log(deleted)
+	log.info(deleted)
 
 	if (!deleted) return res.status(400).json({ message: 'No Task with this id' })
 	await deleteKey(redisConstants.USER_TASK_REDIS_KEY + userId)

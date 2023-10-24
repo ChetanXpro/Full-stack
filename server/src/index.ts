@@ -8,7 +8,7 @@ import cors from 'cors'
 
 import corsOption from './config/corsOptioins'
 
-const app = express()
+export const app = express()
 
 const PORT = process.env.PORT || 3003
 
@@ -19,11 +19,12 @@ app.use(cors({ ...corsOption, credentials: true }))
 
 import Documents from './Routes/taskRoutes'
 import User from './Routes/userRoutes'
+import log from './utils/logger'
 
 app.use('/task', Documents)
 app.use('/user', User)
 
 connectDB()
 app.listen(PORT, () => {
-	console.log(`Server running on port ${PORT}`)
+	log.info(`Server running on port ${PORT}`)
 })

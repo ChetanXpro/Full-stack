@@ -57,8 +57,6 @@ const Signin = () => {
     mutate(payload);
   };
 
-  console.log("auth", email);
-
   return (
     <section className="min-h-screen   w-full bg-red-200 dark:bg-neutral-700">
       <div className=" h-full w-full   p-10">

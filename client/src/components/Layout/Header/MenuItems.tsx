@@ -10,6 +10,7 @@ import { CloseIcon, Icon, MoonIcon, SunIcon } from "@chakra-ui/icons";
 import Avatar from "../../Avatar";
 import UploadModal from "../../UploadModal";
 import usePrivateApis from "../../../hook/usePrivateApis";
+import { Routes } from "../../../constants/consts";
 
 const MenuItems = ({ showMenu, active }: any) => {
   const [userData, setUser] = useAtom(user);

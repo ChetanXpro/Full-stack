@@ -1,3 +1,5 @@
+import log from '../utils/logger'
+
 const redis = require('async-redis')
 
 const REDIS_PORT = process.env.REDIS_PORT
@@ -9,7 +11,7 @@ export const redisClient = redis.createClient({
 	password: REDIS_PASSWORD,
 })
 
-redisClient.on('connect', () => console.info('Redis connected'))
+redisClient.on('connect', () => log.info('Redis connected'))
 
 export const getKey = async (key: string) => {
 	return await redisClient.get(key)
@@ -28,7 +30,7 @@ export const setKey = async (key: string, value: any, expire: number = 0, setIfN
 	let response = await redisClient.sendCommand('SET', params)
 
 	if (response) {
-		console.log(key + ' set to => ' + value)
+		log.info(key + ' set to => ' + value)
 		return true
 	} else return false
 }

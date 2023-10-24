@@ -1,10 +1,7 @@
-const errorHandler = (
-	err: { stack: any; message: any },
-	req: any,
-	res: { statusCode: any; status: (arg0: any) => void; json: (arg0: { message: any }) => void },
-	next: any
-) => {
-	console.log(err.stack)
+import log from '../utils/logger'
+
+const errorHandler = (err: { stack: any; message: any }, req: any, res: any, next: any) => {
+	log.error('ErrorHandler: ', err.stack)
 
 	const status = res.statusCode ? res.statusCode : 500
 

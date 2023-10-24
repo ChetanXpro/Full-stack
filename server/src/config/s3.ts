@@ -1,5 +1,5 @@
+import log from '../utils/logger'
 import AWS from 'aws-sdk'
-import { log } from 'console'
 
 interface IUploadParams {
 	s3ObjectKey: string
@@ -29,7 +29,7 @@ export const generatePreSignedGetUrl = async (payload: IUploadParams) => {
 				},
 				(err, url) => {
 					if (err) {
-						console.log(err)
+						log.error(err)
 						return reject(err)
 					}
 					resolve(url) // API Response Here
@@ -37,7 +37,7 @@ export const generatePreSignedGetUrl = async (payload: IUploadParams) => {
 			)
 		})
 	} catch (error) {
-		console.log('S3 GET PRESIGN URL ERROR:  ', error)
+		log.info('S3 GET PRESIGN URL ERROR:  ', error)
 	}
 }
 
@@ -74,7 +74,7 @@ export const generatePreSignedPutUrl = async (payload: PresignPayload) => {
 				},
 				(err, url) => {
 					if (err) {
-						console.error(err)
+						log.error(err)
 
 						return reject(err)
 					} else {
@@ -84,6 +84,6 @@ export const generatePreSignedPutUrl = async (payload: PresignPayload) => {
 			)
 		})
 	} catch (error: any) {
-		console.log('S3 GET PRESIGN URL ERROR:  ', error)
+		log.info('S3 GET PRESIGN URL ERROR:  ', error)
 	}
 }

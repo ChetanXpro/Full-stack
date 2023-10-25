@@ -5,6 +5,7 @@ TaskMate is a task management application that allows users to create, manage, a
 ### Live deployed demo
 - [Demo Live Url](https://task-management-five-blue.vercel.app)
 - Frontend and backend both deployed on vercel
+- [Snake game code](https://github.com/ChetanXpro/snake-game)
 
 
 

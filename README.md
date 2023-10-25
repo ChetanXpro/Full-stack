@@ -13,7 +13,7 @@ TaskMate is a task management application that allows users to create, manage, a
 - Filter tasks by various criteria, such as status, priority, and completion.
 - Sort tasks by date.
 - Upload and update avatar images
-- Data cache in backend so that backend can server some frequently visited routes values faster.
+- Data cache so that backend can server some frequently visited routes values faster.
 
 ## Getting Started
 

@@ -19,6 +19,7 @@ const MenuItems = ({ showMenu, active }: any) => {
   const [showModal, setShowModal] = useState(false);
 
   const handleshowModals = () => {
+    showMenu();
     setShowModal(true);
   };
   const handleLogout = async () => {
@@ -27,51 +28,53 @@ const MenuItems = ({ showMenu, active }: any) => {
   };
 
   return (
-    <ul
-      className={
-        active
-          ? "flex-col flex z-50 items-center fixed inset-0 left-1/4 uppercase bg-black/40 backdrop-blur-lg gap-8 justify-center p-8 md:hidden"
-          : "hidden"
-      }
-    >
-      <CloseIcon className="cursor-pointer" onClick={showMenu} />
-
-      <Link
-        className="hover:underline cursor-pointer"
-        onClick={showMenu}
-        to={"/"}
+    <div>
+      <ul
+        className={
+          active
+            ? "flex-col flex z-50 items-center fixed inset-0 left-1/4 uppercase bg-black/40 backdrop-blur-lg gap-8 justify-center p-8 md:hidden"
+            : "hidden"
+        }
       >
-        <p>Home</p>
-      </Link>
+        <CloseIcon className="cursor-pointer" onClick={showMenu} />
 
-      <Link
-        className="hover:underline cursor-pointer"
-        onClick={showMenu}
-        to={"/task"}
-      >
-        <p>Tasks</p>
-      </Link>
-      <div
-        className="hover:underline cursor-pointer"
-        onClick={handleshowModals}
-      >
-        <p>Upload Avatar</p>
-      </div>
+        <Link
+          className="hover:underline cursor-pointer"
+          onClick={showMenu}
+          to={"/"}
+        >
+          <p>Home</p>
+        </Link>
 
-      <div className="hover:underline cursor-pointer" onClick={handleLogout}>
-        <p>Logout</p>
-      </div>
-      <div className="flex items-center justify-center">
-        <div className="ml-4 mr-2 ">
-          <Avatar
-            imageUrl={userData?.profilePicture}
-            name={userData?.email}
-            size={"12"}
-          />
+        <Link
+          className="hover:underline cursor-pointer"
+          onClick={showMenu}
+          to={"/task"}
+        >
+          <p>Tasks</p>
+        </Link>
+        <div
+          className="hover:underline cursor-pointer"
+          onClick={handleshowModals}
+        >
+          <p>Upload Avatar</p>
         </div>
-      </div>
+
+        <div className="hover:underline cursor-pointer" onClick={handleLogout}>
+          <p>Logout</p>
+        </div>
+        <div className="flex items-center justify-center">
+          <div className="ml-4 mr-2 ">
+            <Avatar
+              imageUrl={userData?.profilePicture}
+              name={userData?.email}
+              size={"12"}
+            />
+          </div>
+        </div>
+      </ul>
       <UploadModal setShowModal={setShowModal} showModal={showModal} />
-    </ul>
+    </div>
   );
 };
 

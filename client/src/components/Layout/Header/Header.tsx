@@ -61,7 +61,7 @@ const Header = () => {
           />
         </div>
 
-        <ul className="hidden md:flex gap-8 items-center p-6 uppercase ">
+        <ul className="hidden md:flex gap-12 items-center p-6 uppercase ">
           <Link to={"/"} className=" cursor-pointer">
             <p>Home</p>
           </Link>

@@ -1,11 +1,12 @@
 # TaskMate 
 
+TaskMate is a task management application that allows users to create, manage, and organize tasks efficiently. This repository contains the source code for both the frontend (client) and backend (server) of the application.
 
 ### Live deployed demo
 - [Demo Live Url](https://task-management-five-blue.vercel.app)
 - Frontend and backend both deployed on vercel
 
-TaskMate is a task management application that allows users to create, manage, and organize tasks efficiently. This repository contains the source code for both the frontend (client) and backend (server) of the application.
+
 
 ## Features
 

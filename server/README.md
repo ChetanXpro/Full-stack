@@ -1,5 +1,19 @@
 ### Backend Local Installation
 
+## First way is to run server with docker
+
+- Build the container
+```bash
+docker build -t nodeserver .
+```
+- Run the container , dont forget to provide env.
+```bash
+docker run <ENVS>  -p 8000:8000 nodeserver
+ ```
+
+## Second way is to run server without docker
+
+
 1. **Clone the Repository**: Start by cloning the TaskMate repository from GitHub:
 
     ```bash

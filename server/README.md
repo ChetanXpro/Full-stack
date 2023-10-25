@@ -1,9 +1,9 @@
-### Backend Local Installation
+# Backend Local Installation
 
  ## There are two ways to run server
 
 
-# First way is to run server with docker
+### First way is to run server with docker
 
 - Build the container
 ```bash
@@ -14,7 +14,7 @@ docker build -t nodeserver .
 docker run <ENVS>  -p 8000:8000 nodeserver
  ```
 
-# Second way is to run server without docker
+### Second way is to run server without docker
 
 
 1. **Clone the Repository**: Start by cloning the TaskMate repository from GitHub:

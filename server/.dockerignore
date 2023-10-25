@@ -1,0 +1,14 @@
+# .dockerignore
+
+# Exclude Node.js modules (assumes you use npm for dependencies)
+node_modules/
+
+# Exclude any development or local files
+*.log
+*.env
+
+# Exclude any git-related files
+.git
+.gitignore
+
+# Exclude other files or directories as needed

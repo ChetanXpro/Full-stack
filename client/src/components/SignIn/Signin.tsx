@@ -15,6 +15,7 @@ import Button from "../Button";
 import Input from "../Input";
 import { Routes } from "../../constants/consts";
 import { ValidateEmail } from "../../utils/utils";
+import { ValidatePassword } from "../../utils/validations";
 const Signin = () => {
   const [email, setEmail] = useState("");
 
@@ -53,6 +54,10 @@ const Signin = () => {
 
     if (!ValidateEmail(email)) {
       return toast.error("Invalid email");
+    }
+
+    if (!ValidatePassword(password)) {
+      return toast.error("Password must be 6 characters long");
     }
     const payload = {
       email,

@@ -1,12 +1,19 @@
-export const AS_REQUIRED = { required: "Required" };
-export const AS_EMAIL = {
-  ...AS_REQUIRED,
-  pattern: {
-    value: /^\w+([\.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/,
-    message: "Wrong Email Format",
-  },
-};
+const EMAIL_REGEX = /^\w+([\.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
 
-export const AS_PASSWORD = {
-  ...AS_REQUIRED,
-};
+export function ValidateEmail(input: string) {
+  if (input.match(EMAIL_REGEX)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+const PASSWORD_REGEX = /^.{6,}$/;
+
+export function ValidatePassword(input: string) {
+  if (input.match(PASSWORD_REGEX)) {
+    return true;
+  } else {
+    return false;
+  }
+}

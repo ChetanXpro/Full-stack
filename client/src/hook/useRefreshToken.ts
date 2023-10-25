@@ -1,5 +1,5 @@
 import { useAtom } from "jotai";
-import { apiInstance, apiPrivateInstance } from "../Api/api";
+import { apiInstance, apiPrivateInstance } from "../Api/authApi";
 import { authAtom } from "../atoms/atoms";
 import { useNavigate } from "react-router-dom";
 import { Routes } from "../constants/consts";

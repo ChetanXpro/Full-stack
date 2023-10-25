@@ -50,6 +50,12 @@ const useTask = () => {
         queryClient.invalidateQueries({ queryKey: ["tasks"] });
         toast.success("Task status changed successfully");
       },
+      onError: (e: any) => {
+        console.log("error", e.response.data.message);
+        toast.error(e.response.data.message, {
+          id: "error",
+        });
+      },
     });
 
   const [allTasks, setAllTasks] = useAtom(allTasksAtom);

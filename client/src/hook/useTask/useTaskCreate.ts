@@ -29,6 +29,12 @@ const useTaskCreate = ({
       resetCreateTaskData();
       setIsCreateTaskDrawerOpen(!isCreateTaskDrawerOpen);
     },
+    onError: (e: any) => {
+      console.log("error", e.response.data.message);
+      toast.error(e.response.data.message, {
+        id: "error",
+      });
+    },
   });
 
   // Create Task

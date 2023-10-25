@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { apiPrivateInstance } from "../Api/api";
+import { apiPrivateInstance } from "../Api/authApi";
 import useRefreshToken from "./useRefreshToken";
 import { authAtom } from "../atoms/atoms";
 import { useAtom } from "jotai";

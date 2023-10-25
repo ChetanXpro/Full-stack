@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
-import { login } from "../../Api/api";
+import { login } from "../../Api/authApi";
 import { useAtom } from "jotai";
 import logo from "../../assets/task.png";
 
@@ -36,6 +36,12 @@ const Signin = () => {
       setSuccess(true);
 
       navigate(Routes.HOME, { replace: true });
+    },
+    onError: (e: any) => {
+      console.log("error", e.response.data.message);
+      toast.error(e.response.data.message, {
+        id: "errorsignin",
+      });
     },
   });
 

@@ -3,7 +3,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { user } from "../../../atoms/atoms";
 import usePrivateApis from "../../../hook/usePrivateApis";
 import { Routes } from "../../../constants/consts";
-import { apiInstance } from "../../../Api/api";
+import { apiInstance } from "../../../Api/authApi";
 import { useState } from "react";
 import UploadModal from "../../UploadModal";
 

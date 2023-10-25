@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import useAxiosPrivate from "./useAxiosPrivate";
 import { useNavigate } from "react-router-dom";
 import { Routes } from "../constants/consts";
-import { apiInstance } from "../Api/api";
+import { apiInstance } from "../Api/authApi";
 
 const usePrivateApis = () => {
   const apiPrivateInstance = useAxiosPrivate();

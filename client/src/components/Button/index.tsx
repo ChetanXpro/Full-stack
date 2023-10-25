@@ -24,7 +24,7 @@ const Button: React.FC<ButtonProps> = ({
       id={id}
       type={type}
       className={cn(
-        "bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 text-white font-bold py-2 px-4 rounded",
+        "bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none  text-white font-bold py-2 px-4 rounded",
         className
       )}
     >

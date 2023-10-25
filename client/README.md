@@ -27,6 +27,6 @@
 
 5. **Access TaskMate**: You can now access TaskMate client by opening a web browser and visiting the development server's URL, typically [http://localhost:3000](http://localhost:3000).
 
-The frontend should be up and running,Make sure the backend is also running and accessible as required.
+The frontend should be up and running, Make sure the backend is also running and accessible as required.
 
 You're ready to start using and customizing TaskMate on your local environment!

@@ -36,14 +36,14 @@ const Home = () => {
   return (
     <div className=" font-mono h-[calc(100vh-4rem)]">
       <div className="h-full flex items-center justify-center">
-        <div className="flex flex-col items-center gap-3">
+        <div className="flex flex-col justify-center p-2 items-center gap-3">
           <div className="flex mb-8 items-center text-4xl font-bold gap-2">
             <h1>TaskMate</h1>
             <img src={logo} width={50} alt="logo" />
           </div>
 
           <h1 className="text-xl font-semibold">Create and Customize Tasks</h1>
-          <p className="text-md">
+          <p className="text-md ">
             Easily create tasks, add detailed descriptions, and assign statuses
             to stay organized.
           </p>

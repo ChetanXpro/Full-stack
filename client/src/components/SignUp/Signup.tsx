@@ -14,7 +14,7 @@ import { ValidateEmail } from "../../utils/utils";
 
 const Signup = () => {
   const [email, setEmail] = useState("");
-
+  const [isLoading, setIsLoading] = useState(false);
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
@@ -24,6 +24,7 @@ const Signup = () => {
     onSuccess: (data) => {
       toast.success("Account created");
 
+      setIsLoading(false);
       navigate("/signin");
     },
     onError: (e: any) => {
@@ -31,6 +32,7 @@ const Signup = () => {
       toast.error(e.response.data.message, {
         id: "error",
       });
+      setIsLoading(false);
     },
   });
 
@@ -49,6 +51,7 @@ const Signup = () => {
       email: email,
       password,
     };
+    setIsLoading(true);
     mutate(payload);
   };
   return (
@@ -96,10 +99,11 @@ const Signup = () => {
 
                       <div className="mb-12 pb-1 pt-1 text-center">
                         <Button
-                          type={"submitß"}
+                          type={"submit"}
+                          isLoading={isLoading}
                           className="w-full mb-3 inline-block  rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
                         >
-                          Register
+                          Sign up
                         </Button>
                       </div>
 

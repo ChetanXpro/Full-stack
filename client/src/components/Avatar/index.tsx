@@ -1,16 +1,8 @@
 import React from "react";
 
+// generate random color
 const getRandomColor = () => {
-  const colors = [
-    "bg-red-500",
-    "bg-blue-500",
-    "bg-green-500",
-    "bg-yellow-500",
-    "bg-pink-500",
-    "bg-purple-500",
-    "bg-indigo-500",
-    "bg-cyan-500",
-  ];
+  const colors = ["bg-green-500"];
 
   const randomIndex = Math.floor(Math.random() * colors.length);
   return colors[randomIndex];
@@ -37,7 +29,7 @@ const Avatar = ({
   if (imageUrl) {
     avatarContent = (
       <div className="border rounded-full border-gray-500 overflow-hidden">
-        <img src={imageUrl} className="h-10" alt={alt} />
+        <img src={imageUrl} className="h-12 w-12" alt={alt} />
       </div>
     );
   } else if (name) {

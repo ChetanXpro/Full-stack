@@ -20,12 +20,10 @@ const Signin = () => {
   const [email, setEmail] = useState("");
 
   const navigate = useNavigate();
-  // const { setAuth, setUser } = useAuth();
-  const [auth, setAuth] = useAtom(authAtom);
-  const [success, setSuccess] = useState(false);
+
   const [password, setPassword] = useState("");
 
-  const [userData, setUserData] = useAtom(user);
+  const [isLoading, setIsLoading] = useState(false);
 
   const { isError, error, mutate } = useMutation({
     mutationFn: login,
@@ -34,7 +32,7 @@ const Signin = () => {
 
       sessionStorage.setItem("access_token", token);
 
-      setSuccess(true);
+      setIsLoading(false);
 
       navigate(Routes.HOME, { replace: true });
     },
@@ -43,6 +41,7 @@ const Signin = () => {
       toast.error(e.response.data.message, {
         id: "errorsignin",
       });
+      setIsLoading(false);
     },
   });
 
@@ -65,6 +64,7 @@ const Signin = () => {
     };
     console.log(payload);
 
+    setIsLoading(true);
     mutate(payload);
   };
 
@@ -112,6 +112,7 @@ const Signin = () => {
                       <div className="mb-12 pb-1 pt-1 text-center">
                         <Button
                           type={"submit"}
+                          isLoading={isLoading}
                           className="w-full mb-3 inline-block  rounded px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
                         >
                           Log in

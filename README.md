@@ -6,6 +6,7 @@ TaskMate is a task management application that allows users to create, manage, a
 
 ## Features
 
+- User authentication with jwt access and refresh token.
 - Create new tasks with a title, description, status, and priority.
 - View a list of tasks and their details.
 - Edit and update existing tasks.

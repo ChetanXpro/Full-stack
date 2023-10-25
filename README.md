@@ -12,6 +12,13 @@ TaskMate is a task management application that allows users to create, manage, a
 - Upload and update avatar images
 - Data cache in backend so that backend can server some frequently visited routes values faster.
 
+## Getting Started
+
+To run TaskMate locally, you will need to set up both the frontend and backend. Follow the instructions in the respective directories:
+
+- [Frontend Setup](./client/README.md): Setup instructions for the frontend.
+- [Backend Setup](./server/README.md): Setup instructions for the backend.
+
 ## Assumptions and Design Decisions
 
 During the development of TaskMate, the following assumptions and design decisions were made:
@@ -49,13 +56,6 @@ During the development of TaskMate, the following assumptions and design decisio
 - **AWS S3***: S3 to store users avatar images.
 - **Azure Redis**: Redis is used to cache some frequently visited route values.
 - **Express-async-handler**: Express-async-handler is a middleware for Express.js that simplifies error handling in asynchronous route handlers.
-
-## Getting Started
-
-To run TaskMate locally, you will need to set up both the frontend and backend. Follow the instructions in the respective directories:
-
-- [Frontend Setup](./client/README.md): Setup instructions for the frontend.
-- [Backend Setup](./server/README.md): Setup instructions for the backend.
 
 ## Usage
 
